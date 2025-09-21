@@ -1,0 +1,40 @@
+{
+    "name": "symfony-ddd/domain",
+    "type": "symfony-bundle",
+    "description": "A Symfony bundle providing domain interfaces core",
+    "keywords": ["symfony", "bundle", "ddd", "value-object", "domain-event", "domain"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Peter Brecska",
+            "email": "peter@brecska.sk"
+        }
+    ],
+    "require": {
+        "php": ">=8.3",
+        "symfony/framework-bundle": "^7.0",
+        "symfony/config": "^7.0",
+        "symfony/dependency-injection": "^7.0",
+        "symfony/http-kernel": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "symfony/phpunit-bridge": "^7.0",
+        "symfony/yaml": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SymfonyDDD\\CoreBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SymfonyDDD\\CoreBundle\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "symfony": {
+            "require": "7.*"
+        }
+    }
+}

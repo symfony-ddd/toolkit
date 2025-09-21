@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  php8.3:
+    image: php:8.3-cli
+    working_dir: /app
+    volumes:
+      - .:/app
+      - composer_cache:/tmp/composer
+    environment:
+      - COMPOSER_CACHE_DIR=/tmp/composer
+    command: >
+      sh -c "
+        curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer &&
+        apt-get update &&
+        apt-get install -y git unzip &&
+        composer install --no-interaction --prefer-dist &&
+        ./vendor/bin/phpunit
+      "
+
+  php8.4:
+    image: php:8.4-cli
+    working_dir: /app
+    volumes:
+      - .:/app
+      - composer_cache:/tmp/composer
+    environment:
+      - COMPOSER_CACHE_DIR=/tmp/composer
+    command: >
+      sh -c "
+        curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer &&
+        apt-get update &&
+        apt-get install -y git unzip &&
+        composer install --no-interaction --prefer-dist &&
+        ./vendor/bin/phpunit
+      "
+
+  php-dev:
+    image: php:8.3-cli
+    working_dir: /app
+    volumes:
+      - .:/app
+      - composer_cache:/tmp/composer
+    environment:
+      - COMPOSER_CACHE_DIR=/tmp/composer
+    entrypoint: >
+      sh -c "
+        curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer &&
+        apt-get update &&
+        apt-get install -y git unzip &&
+        tail -f /dev/null
+      "
+
+volumes:
+  composer_cache:
