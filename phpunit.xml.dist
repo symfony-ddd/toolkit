@@ -14,7 +14,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="Core Bundle Test Suite">
+        <testsuite name="Toolkit Bundle Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -25,7 +25,7 @@
         </include>
         <exclude>
             <directory>src/DependencyInjection</directory>
-            <file>src/CoreBundle.php</file>
+            <file>src/ToolkitBundle.php</file>
         </exclude>
     </source>
 </phpunit>

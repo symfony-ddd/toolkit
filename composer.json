@@ -1,7 +1,7 @@
 {
-    "name": "symfony-ddd/domain",
+    "name": "symfony-ddd/toolkit",
     "type": "symfony-bundle",
-    "description": "A Symfony bundle providing domain interfaces core",
+    "description": "A Symfony bundle providing domain interfaces",
     "keywords": ["symfony", "bundle", "ddd", "value-object", "domain-event", "domain"],
     "license": "MIT",
     "authors": [
@@ -15,21 +15,21 @@
         "symfony/framework-bundle": "^7.0",
         "symfony/config": "^7.0",
         "symfony/dependency-injection": "^7.0",
-        "symfony/http-kernel": "^7.0"
+        "symfony/http-kernel": "^7.0",
+        "symfony/messenger": "^7.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.0",
-        "symfony/phpunit-bridge": "^7.0",
-        "symfony/yaml": "^7.0"
+        "symfony/phpunit-bridge": "^7.0"
     },
     "autoload": {
         "psr-4": {
-            "SymfonyDDD\\CoreBundle\\": "src/"
+            "SymfonyDDD\\ToolkitBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SymfonyDDD\\CoreBundle\\Tests\\": "tests/"
+            "SymfonyDDD\\ToolkitBundle\\Tests\\": "tests/"
         }
     },
     "extra": {

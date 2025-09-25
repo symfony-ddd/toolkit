@@ -13,6 +13,7 @@ class ComposerStaticInit4008a4faaf1ebdd2da0966ea6976a762
         '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '2203a247e6fda86070a5e4e07aed533a' => __DIR__ . '/..' . '/symfony/clock/Resources/now.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
     );
@@ -26,10 +27,10 @@ class ComposerStaticInit4008a4faaf1ebdd2da0966ea6976a762
             'Symfony\\Contracts\\Service\\' => 26,
             'Symfony\\Contracts\\EventDispatcher\\' => 34,
             'Symfony\\Contracts\\Cache\\' => 24,
-            'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\VarExporter\\' => 30,
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Routing\\' => 26,
+            'Symfony\\Component\\Messenger\\' => 28,
             'Symfony\\Component\\HttpKernel\\' => 29,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Finder\\' => 25,
@@ -38,17 +39,19 @@ class ComposerStaticInit4008a4faaf1ebdd2da0966ea6976a762
             'Symfony\\Component\\ErrorHandler\\' => 31,
             'Symfony\\Component\\DependencyInjection\\' => 38,
             'Symfony\\Component\\Config\\' => 25,
+            'Symfony\\Component\\Clock\\' => 24,
             'Symfony\\Component\\Cache\\' => 24,
             'Symfony\\Bundle\\FrameworkBundle\\' => 31,
             'Symfony\\Bridge\\PhpUnit\\' => 23,
-            'SymfonyDDD\\DomainBundle\\Tests\\' => 30,
-            'SymfonyDDD\\DomainBundle\\' => 24,
+            'SymfonyDDD\\ToolkitBundle\\Tests\\' => 31,
+            'SymfonyDDD\\ToolkitBundle\\' => 25,
         ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
+            'Psr\\Clock\\' => 10,
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
         ),
@@ -83,10 +86,6 @@ class ComposerStaticInit4008a4faaf1ebdd2da0966ea6976a762
         array (
             0 => __DIR__ . '/..' . '/symfony/cache-contracts',
         ),
-        'Symfony\\Component\\Yaml\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/yaml',
-        ),
         'Symfony\\Component\\VarExporter\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/var-exporter',
@@ -98,6 +97,10 @@ class ComposerStaticInit4008a4faaf1ebdd2da0966ea6976a762
         'Symfony\\Component\\Routing\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/routing',
+        ),
+        'Symfony\\Component\\Messenger\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/messenger',
         ),
         'Symfony\\Component\\HttpKernel\\' => 
         array (
@@ -131,6 +134,10 @@ class ComposerStaticInit4008a4faaf1ebdd2da0966ea6976a762
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
         ),
+        'Symfony\\Component\\Clock\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/clock',
+        ),
         'Symfony\\Component\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/cache',
@@ -143,11 +150,11 @@ class ComposerStaticInit4008a4faaf1ebdd2da0966ea6976a762
         array (
             0 => __DIR__ . '/..' . '/symfony/phpunit-bridge',
         ),
-        'SymfonyDDD\\DomainBundle\\Tests\\' => 
+        'SymfonyDDD\\ToolkitBundle\\Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
         ),
-        'SymfonyDDD\\DomainBundle\\' => 
+        'SymfonyDDD\\ToolkitBundle\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
@@ -162,6 +169,10 @@ class ComposerStaticInit4008a4faaf1ebdd2da0966ea6976a762
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Psr\\Clock\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/clock/src',
         ),
         'Psr\\Cache\\' => 
         array (

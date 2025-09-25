@@ -1,9 +1,9 @@
 <?php
 
-namespace SymfonyDDD\CoreBundle\Tests\Unit\ValueObject;
+namespace SymfonyDDD\ToolkitBundle\Tests\Unit\ValueObject;
 
 use PHPUnit\Framework\TestCase;
-use SymfonyDDD\CoreBundle\Tests\Unit\ValueObject\Mock\Delay;
+use SymfonyDDD\ToolkitBundle\Tests\Unit\ValueObject\Mock\Delay;
 
 class DelayTest extends TestCase
 {

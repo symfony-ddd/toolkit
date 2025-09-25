@@ -1,8 +1,8 @@
 <?php
 
-namespace SymfonyDDD\CoreBundle\Tests\Unit\ValueObject\Mock;
+namespace SymfonyDDD\ToolkitBundle\Tests\Unit\ValueObject\Mock;
 
-use SymfonyDDD\CoreBundle\Domain\ValueObject\ToggleValue;
+use SymfonyDDD\ToolkitBundle\Value\ToggleValue;
 
 readonly class DarkModeToggle extends ToggleValue
 {

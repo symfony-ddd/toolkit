@@ -1,9 +1,9 @@
 <?php
 
-namespace SymfonyDDD\CoreBundle\Tests\Unit\ValueObject\Mock;
+namespace SymfonyDDD\ToolkitBundle\Tests\Unit\ValueObject\Mock;
 
 use InvalidArgumentException;
-use SymfonyDDD\CoreBundle\Domain\ValueObject\IntValue;
+use SymfonyDDD\ToolkitBundle\Value\IntValue;
 
 readonly class Delay extends IntValue
 {

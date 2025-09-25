@@ -1,0 +1,21 @@
+# Example configuration for SymfonyDDD Toolkit Bundle
+symfony_ddd_toolkit:
+    buses:
+        command_bus:
+            # Use default command bus (will be created if not exists)
+            service_id: 'messenger.bus.commands'
+            middleware: []
+            # Or override with custom bus:
+            # service_id: 'app.custom_command_bus'
+            # middleware:
+            #   - 'app.validation_middleware'
+            #   - 'app.logging_middleware'
+
+        event_bus:
+            # Use default event bus (will be created if not exists)
+            service_id: 'messenger.bus.events'
+            middleware: []
+            # Or override with custom bus:
+            # service_id: 'app.custom_event_bus'
+            # middleware:
+            #   - 'app.audit_middleware'

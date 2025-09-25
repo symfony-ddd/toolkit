@@ -1,3 +1,9 @@
+# Symfony DDD Toolkit Bundle
+
+> A Symfony bundle that makes Domain-Driven Design implementation effortless by providing essential building blocks and keeping your domain understandable.
+
+- ✅ **Ready-to-use Building Blocks**: Value Objects, Aggregates, Domain Events
+
 Installation
 ============
 
@@ -11,7 +17,7 @@ Applications that use Symfony Flex
 Open a command console, enter your project directory and execute:
 
 ```console
-composer require symfony-ddd/core
+composer require symfony-ddd/toolkit
 ```
 
 Applications that don't use Symfony Flex
@@ -23,7 +29,7 @@ Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
 
 ```console
-composer require symfony-ddd/core
+composer require symfony-ddd/toolkit
 ```
 
 ### Step 2: Enable the Bundle
@@ -36,6 +42,6 @@ in the `config/bundles.php` file of your project:
 
 return [
     // ...
-    <vendor>\<bundle-name>\<bundle-long-name>::class => ['all' => true],
+    SymfonyDDD\ToolkitBundle\ToolkitBundle::class => ['all' => true],
 ];
 ```
