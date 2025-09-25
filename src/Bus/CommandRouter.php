@@ -9,6 +9,7 @@ use RuntimeException;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use SymfonyDDD\ToolkitBundle\AggregateRoot;
+use SymfonyDDD\ToolkitBundle\Command;
 use SymfonyDDD\ToolkitBundle\CommandHandler;
 
 #[AsMessageHandler]
@@ -22,7 +23,7 @@ class CommandRouter
         $this->registerHandlers($commandHandlers);
     }
 
-    public function __invoke(object $command): AggregateRoot
+    public function __invoke(Command $command): AggregateRoot
     {
         $commandClass = get_class($command);
 
@@ -48,7 +49,6 @@ class CommandRouter
     {
         $reflection = new ReflectionClass($handler);
 
-        // Check if class has CommandHandler attribute
         $attributes = $reflection->getAttributes(CommandHandler::class);
         if (empty($attributes)) {
             throw new RuntimeException(
@@ -56,7 +56,6 @@ class CommandRouter
             );
         }
 
-        // Check if __invoke method exists and has correct signature
         if (!$reflection->hasMethod('__invoke')) {
             throw new RuntimeException(
                 sprintf('Handler %s must have __invoke method', $reflection->getName())

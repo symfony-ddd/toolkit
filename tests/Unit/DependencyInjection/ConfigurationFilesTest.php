@@ -23,7 +23,7 @@ class ConfigurationFilesTest extends TestCase
 
     public function testDefaultConfigurationFile(): void
     {
-        $configFile = $this->fixturesPath . '/domain.yaml';
+        $configFile = $this->fixturesPath . '/default.yaml';
         $this->assertFileExists($configFile);
 
         $yamlContent = Yaml::parseFile($configFile);
@@ -32,10 +32,8 @@ class ConfigurationFilesTest extends TestCase
         $config = $this->processor->processConfiguration($this->configuration, [$yamlContent['domain']]);
 
         // Test default values from file
-        $this->assertEquals('messenger.bus.commands', $config['buses']['command_bus']['service_id']);
-        $this->assertEquals([], $config['buses']['command_bus']['middleware']);
-        $this->assertEquals('messenger.bus.events', $config['buses']['event_bus']['service_id']);
-        $this->assertEquals([], $config['buses']['event_bus']['middleware']);
+        $this->assertEquals('symfony_ddd_toolkit.command_bus', $config['buses']['command_bus']);
+        $this->assertEquals('symfony_ddd_toolkit.event_bus', $config['buses']['event_bus']);
     }
 
     public function testCustomBusesConfigurationFile(): void
@@ -47,18 +45,10 @@ class ConfigurationFilesTest extends TestCase
         $config = $this->processor->processConfiguration($this->configuration, [$yamlContent['domain']]);
 
         // Test custom command bus
-        $this->assertEquals('app.custom_command_bus', $config['buses']['command_bus']['service_id']);
-        $this->assertEquals(
-            ['app.validation_middleware', 'app.logging_middleware'],
-            $config['buses']['command_bus']['middleware']
-        );
+        $this->assertEquals('app.custom_command_bus', $config['buses']['command_bus']);
 
         // Test custom event bus
-        $this->assertEquals('app.custom_event_bus', $config['buses']['event_bus']['service_id']);
-        $this->assertEquals(
-            ['app.audit_middleware', 'app.event_logging_middleware'],
-            $config['buses']['event_bus']['middleware']
-        );
+        $this->assertEquals('app.custom_event_bus', $config['buses']['event_bus']);
     }
 
     public function testPartialConfigurationFile(): void
@@ -70,17 +60,15 @@ class ConfigurationFilesTest extends TestCase
         $config = $this->processor->processConfiguration($this->configuration, [$yamlContent['domain']]);
 
         // Test partial configuration - command bus customized, event bus defaults
-        $this->assertEquals('app.custom_command_bus', $config['buses']['command_bus']['service_id']);
-        $this->assertEquals([], $config['buses']['command_bus']['middleware']);
+        $this->assertEquals('app.custom_command_bus', $config['buses']['command_bus']);
 
         // Event bus should use defaults
-        $this->assertEquals('messenger.bus.events', $config['buses']['event_bus']['service_id']);
-        $this->assertEquals([], $config['buses']['event_bus']['middleware']);
+        $this->assertEquals('symfony_ddd_toolkit.bus.events', $config['buses']['event_bus']);
     }
 
     public function testConfigurationFileStructure(): void
     {
-        $configFile = $this->fixturesPath . '/domain.yaml';
+        $configFile = $this->fixturesPath . '/default.yaml';
         $yamlContent = Yaml::parseFile($configFile);
 
         // Test YAML structure
@@ -90,33 +78,26 @@ class ConfigurationFilesTest extends TestCase
         $this->assertArrayHasKey('command_bus', $yamlContent['domain']['buses']);
         $this->assertArrayHasKey('event_bus', $yamlContent['domain']['buses']);
 
-        // Test command bus structure
-        $commandBus = $yamlContent['domain']['buses']['command_bus'];
-        $this->assertArrayHasKey('service_id', $commandBus);
-        $this->assertArrayHasKey('middleware', $commandBus);
+        // Test command bus structure (now scalar)
+        $this->assertIsString($yamlContent['symfony_ddd_toolkit']['buses']['command_bus']);
 
-        // Test event bus structure
-        $eventBus = $yamlContent['domain']['buses']['event_bus'];
-        $this->assertArrayHasKey('service_id', $eventBus);
-        $this->assertArrayHasKey('middleware', $eventBus);
+        // Test event bus structure (now scalar)
+        $this->assertIsString($yamlContent['symfony_ddd_toolkit']['buses']['event_bus']);
     }
 
     public function testConfigurationFileComments(): void
     {
-        $configFile = $this->fixturesPath . '/domain.yaml';
+        $configFile = $this->fixturesPath . '/default.yaml';
         $fileContent = file_get_contents($configFile);
 
         // Test that comments are present for documentation
         $this->assertStringContainsString('# Example configuration', $fileContent);
-        $this->assertStringContainsString('# Use default command bus', $fileContent);
-        $this->assertStringContainsString('# Or override with custom bus', $fileContent);
-        $this->assertStringContainsString('service_id of the command bus', $fileContent);
     }
 
     public function testAllConfigurationFilesAreValid(): void
     {
         $configFiles = [
-            'domain.yaml',
+            'default.yaml',
             'custom_buses.yaml', 
             'partial_config.yaml'
         ];
@@ -127,10 +108,10 @@ class ConfigurationFilesTest extends TestCase
 
             $yamlContent = Yaml::parseFile($configFile);
             $this->assertIsArray($yamlContent, "Configuration file {$filename} should contain valid YAML");
-            $this->assertArrayHasKey('domain', $yamlContent, "Configuration file {$filename} should have 'domain' key");
+            $this->assertArrayHasKey('symfony_ddd_toolkit', $yamlContent, "Configuration file {$filename} should have 'symfony_ddd_toolkit' key");
 
             // Test that configuration is processable
-            $config = $this->processor->processConfiguration($this->configuration, [$yamlContent['domain']]);
+            $config = $this->processor->processConfiguration($this->configuration, [$yamlContent['symfony_ddd_toolkit']]);
             $this->assertIsArray($config, "Configuration from {$filename} should be processable");
             $this->assertArrayHasKey('buses', $config, "Processed config from {$filename} should have 'buses' key");
         }
@@ -140,55 +121,37 @@ class ConfigurationFilesTest extends TestCase
     {
         $testCases = [
             [
-                'file' => 'domain.yaml',
-                'expected_command_service' => 'messenger.bus.commands',
-                'expected_command_middleware' => [],
-                'expected_event_service' => 'messenger.bus.events',
-                'expected_event_middleware' => [],
+                'file' => 'default.yaml',
+                'expected_command_service' => 'symfony_ddd_toolkit.command_bus',
+                'expected_event_service' => 'symfony_ddd_toolkit.event_bus',
             ],
             [
                 'file' => 'custom_buses.yaml',
                 'expected_command_service' => 'app.custom_command_bus',
-                'expected_command_middleware' => ['app.validation_middleware', 'app.logging_middleware'],
                 'expected_event_service' => 'app.custom_event_bus',
-                'expected_event_middleware' => ['app.audit_middleware', 'app.event_logging_middleware'],
             ],
             [
                 'file' => 'partial_config.yaml',
                 'expected_command_service' => 'app.custom_command_bus',
-                'expected_command_middleware' => [],
-                'expected_event_service' => 'messenger.bus.events',
-                'expected_event_middleware' => [],
+                'expected_event_service' => 'symfony_ddd_toolkit.bus.events',
             ],
         ];
 
         foreach ($testCases as $testCase) {
             $configFile = $this->fixturesPath . '/' . $testCase['file'];
             $yamlContent = Yaml::parseFile($configFile);
-            $config = $this->processor->processConfiguration($this->configuration, [$yamlContent['domain']]);
+            $config = $this->processor->processConfiguration($this->configuration, [$yamlContent['symfony_ddd_toolkit']]);
 
             $this->assertEquals(
                 $testCase['expected_command_service'],
-                $config['buses']['command_bus']['service_id'],
+                $config['buses']['command_bus'],
                 "Command service ID mismatch in {$testCase['file']}"
             );
 
             $this->assertEquals(
-                $testCase['expected_command_middleware'],
-                $config['buses']['command_bus']['middleware'],
-                "Command middleware mismatch in {$testCase['file']}"
-            );
-
-            $this->assertEquals(
                 $testCase['expected_event_service'],
-                $config['buses']['event_bus']['service_id'],
+                $config['buses']['event_bus'],
                 "Event service ID mismatch in {$testCase['file']}"
-            );
-
-            $this->assertEquals(
-                $testCase['expected_event_middleware'],
-                $config['buses']['event_bus']['middleware'],
-                "Event middleware mismatch in {$testCase['file']}"
             );
         }
     }

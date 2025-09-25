@@ -16,14 +16,6 @@ class ConfigurationIntegrationTest extends TestCase
     protected function setUp(): void
     {
         $this->fixturesPath = __DIR__ . '/../Fixtures/config';
-
-        // Create required services.php file for extension
-        if (!file_exists(__DIR__ . '/../../config/services.php')) {
-            if (!is_dir(__DIR__ . '/../../config')) {
-                mkdir(__DIR__ . '/../../config', 0755, true);
-            }
-            file_put_contents(__DIR__ . '/../../config/services.php', '<?php return [];');
-        }
     }
 
     public function testDefaultConfigurationIntegration(): void
@@ -33,10 +25,10 @@ class ConfigurationIntegrationTest extends TestCase
 
         // Load configuration from file
         $loader = new YamlFileLoader($container, new FileLocator($this->fixturesPath));
-        $loader->load('domain.yaml');
+        $loader->load('default.yaml');
 
         // Process with extension
-        $configs = $container->getExtensionConfig('domain');
+        $configs = $container->getExtensionConfig('symfony_ddd_toolkit');
         $extension->load($configs, $container);
 
         // Verify services are registered
@@ -58,7 +50,7 @@ class ConfigurationIntegrationTest extends TestCase
         $loader->load('custom_buses.yaml');
 
         // Process with extension
-        $configs = $container->getExtensionConfig('domain');
+        $configs = $container->getExtensionConfig('symfony_ddd_toolkit');
         $extension->load($configs, $container);
 
         // Verify aliases point to custom services
@@ -98,10 +90,4 @@ class ConfigurationIntegrationTest extends TestCase
         $this->assertTrue($container->hasDefinition('messenger.bus.events'));
     }
 
-    protected function tearDown(): void
-    {
-        if (file_exists(__DIR__ . '/../../config/services.php')) {
-            unlink(__DIR__ . '/../../config/services.php');
-        }
-    }
 }

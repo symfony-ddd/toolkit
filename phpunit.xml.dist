@@ -6,6 +6,7 @@
          testdox="true">
 
     <php>
+        <env name="KERNEL_CLASS" value="SymfonyDDD\ToolkitBundle\Tests\Fixtures\TestKernel"/>
         <ini name="error_reporting" value="-1" />
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />

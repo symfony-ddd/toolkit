@@ -24,8 +24,7 @@ return static function (ContainerConfigurator $container): void {
 
     // Register the command router
     $services->set(CommandRouter::class)
-        ->arg('$commandHandlers', tagged_iterator('app.command_handler'))
-        ->tag('messenger.message_handler', ['bus' => 'symfony_ddd_toolkit.command_bus']);
+        ->arg('$commandHandlers', tagged_iterator('app.command_handler'));
 
     // Aliases for easy access to configured buses
     $services->alias(CommandBus::class, 'symfony_ddd_toolkit.command_bus')

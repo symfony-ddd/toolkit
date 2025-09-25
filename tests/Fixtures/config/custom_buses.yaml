@@ -1,14 +1,5 @@
 # Custom bus configuration for testing
 symfony_ddd_toolkit:
     buses:
-        command_bus:
-            service_id: 'app.custom_command_bus'
-            middleware:
-                - 'app.validation_middleware'
-                - 'app.logging_middleware'
-
-        event_bus:
-            service_id: 'app.custom_event_bus'
-            middleware:
-                - 'app.audit_middleware'
-                - 'app.event_logging_middleware'
+        command_bus: 'app.custom_command_bus'
+        event_bus: 'app.custom_event_bus'

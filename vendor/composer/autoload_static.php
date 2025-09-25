@@ -27,6 +27,7 @@ class ComposerStaticInit4008a4faaf1ebdd2da0966ea6976a762
             'Symfony\\Contracts\\Service\\' => 26,
             'Symfony\\Contracts\\EventDispatcher\\' => 34,
             'Symfony\\Contracts\\Cache\\' => 24,
+            'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\VarExporter\\' => 30,
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Routing\\' => 26,
@@ -85,6 +86,10 @@ class ComposerStaticInit4008a4faaf1ebdd2da0966ea6976a762
         'Symfony\\Contracts\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/cache-contracts',
+        ),
+        'Symfony\\Component\\Yaml\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
         'Symfony\\Component\\VarExporter\\' => 
         array (

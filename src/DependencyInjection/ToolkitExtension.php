@@ -8,11 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Messenger\MessageBus;
-use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
-use Symfony\Component\Messenger\Middleware\SendMessageMiddleware;
 
 class ToolkitExtension extends Extension
 {
@@ -21,18 +17,16 @@ class ToolkitExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new PhpFileLoader(
-            $container,
-            new FileLocator(__DIR__ . '/../../config')
-        );
-        $loader->load('services.php');
+        $servicesFile = __DIR__ . '/../../config/services.php';
+        if (file_exists($servicesFile)) {
+            $loader = new PhpFileLoader(
+                $container,
+                new FileLocator(__DIR__ . '/../../config')
+            );
+            $loader->load('services.php');
+        }
 
         $this->configureBuses($config['buses'], $container);
-    }
-
-    public function getAlias(): string
-    {
-        return 'symfony_ddd_toolkit';
     }
 
     private function configureBuses(array $busesConfig, ContainerBuilder $container): void
@@ -41,76 +35,34 @@ class ToolkitExtension extends Extension
         $this->configureEventBus($busesConfig['event_bus'], $container);
     }
 
-    private function configureCommandBus(array $commandBusConfig, ContainerBuilder $container): void
+    private function configureCommandBus(string $commandBusServiceId, ContainerBuilder $container): void
     {
-        $serviceId = $commandBusConfig['service_id'];
-
-        if (!$container->hasDefinition($serviceId)) {
-            $this->createDefaultCommandBus($serviceId, $commandBusConfig['middleware'], $container);
+        if (!$container->hasDefinition($commandBusServiceId)) {
+            $this->createDefaultBus($commandBusServiceId, $container);
         }
 
-        $container->setAlias('symfony_ddd_toolkit.command_bus', $serviceId);
+        $container->setAlias('symfony_ddd_toolkit.command_bus', $commandBusServiceId);
     }
 
-    private function configureEventBus(array $eventBusConfig, ContainerBuilder $container): void
+    private function createDefaultBus(string $serviceId, ContainerBuilder $container): void
     {
-        $serviceId = $eventBusConfig['service_id'];
-
-        if (!$container->hasDefinition($serviceId)) {
-            $this->createDefaultEventBus($serviceId, $eventBusConfig['middleware'], $container);
-        }
-
-        $container->setAlias('symfony_ddd_toolkit.event_bus', $serviceId);
-    }
-
-    private function createDefaultCommandBus(string $serviceId, array $additionalMiddleware, ContainerBuilder $container): void
-    {
-        $middleware = [
-            new Reference('messenger.middleware.send_message'),
-            new Reference('messenger.middleware.handle_message'),
-        ];
-
-        foreach ($additionalMiddleware as $middlewareService) {
-            array_unshift($middleware, new Reference($middlewareService));
-        }
-
-        $definition = new Definition(MessageBus::class, [$middleware]);
+        $definition = new Definition(MessageBus::class, []);
         $definition->addTag('messenger.bus');
 
         $container->setDefinition($serviceId, $definition);
-
-        $this->ensureDefaultMiddleware($container);
     }
 
-    private function createDefaultEventBus(string $serviceId, array $additionalMiddleware, ContainerBuilder $container): void
+    private function configureEventBus(string $eventBusServiceId, ContainerBuilder $container): void
     {
-        $middleware = [
-            new Reference('messenger.middleware.send_message'),
-            new Reference('messenger.middleware.handle_message'),
-        ];
-
-        foreach ($additionalMiddleware as $middlewareService) {
-            array_unshift($middleware, new Reference($middlewareService));
+        if (!$container->hasDefinition($eventBusServiceId)) {
+            $this->createDefaultBus($eventBusServiceId, $container);
         }
 
-        $definition = new Definition(MessageBus::class, [$middleware]);
-        $definition->addTag('messenger.bus');
-
-        $container->setDefinition($serviceId, $definition);
-
-        $this->ensureDefaultMiddleware($container);
+        $container->setAlias('symfony_ddd_toolkit.event_bus', $eventBusServiceId);
     }
 
-    private function ensureDefaultMiddleware(ContainerBuilder $container): void
+    public function getAlias(): string
     {
-        if (!$container->hasDefinition('messenger.middleware.send_message')) {
-            $definition = new Definition(SendMessageMiddleware::class);
-            $container->setDefinition('messenger.middleware.send_message', $definition);
-        }
-
-        if (!$container->hasDefinition('messenger.middleware.handle_message')) {
-            $definition = new Definition(HandleMessageMiddleware::class);
-            $container->setDefinition('messenger.middleware.handle_message', $definition);
-        }
+        return 'symfony_ddd_toolkit';
     }
 }

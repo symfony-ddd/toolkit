@@ -1,7 +1,5 @@
 # Partial configuration for testing defaults
 symfony_ddd_toolkit:
     buses:
-        command_bus:
-            service_id: 'app.custom_command_bus'
-            # middleware uses defaults (empty array)
-        # event_bus uses all defaults
+        command_bus: 'app.custom_command_bus'
+        # event_bus uses default value

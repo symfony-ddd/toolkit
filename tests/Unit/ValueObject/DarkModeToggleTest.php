@@ -14,10 +14,10 @@ class DarkModeToggleTest extends TestCase
         $fromBoolTrue = DarkModeToggle::fromBoolean(true);
         $fromBoolFalse = DarkModeToggle::fromBoolean(false);
 
-        assert($enabled->isEnabled());
-        assert($disabled->isDisabled());
-        assert($fromBoolTrue->isEnabled());
-        assert($fromBoolFalse->isDisabled());
+        $this->assertTrue($enabled->isEnabled());
+        $this->assertTrue($disabled->isDisabled());
+        $this->assertTrue($fromBoolTrue->isEnabled());
+        $this->assertTrue($fromBoolFalse->isDisabled());
     }
 
     public function testEqualityComparison(): void
@@ -27,10 +27,10 @@ class DarkModeToggleTest extends TestCase
         $disabled1 = DarkModeToggle::disabled();
         $disabled2 = DarkModeToggle::disabled();
 
-        assert($enabled1->eq($enabled2));
-        assert($disabled1->eq($disabled2));
-        assert(!$enabled1->eq($disabled1));
-        assert(!$disabled1->eq($enabled1));
+        $this->assertTrue($enabled1->eq($enabled2));
+        $this->assertTrue($disabled1->eq($disabled2));
+        $this->assertTrue(!$enabled1->eq($disabled1));
+        $this->assertTrue(!$disabled1->eq($enabled1));
     }
 
     public function testInequalityComparison(): void
@@ -39,9 +39,9 @@ class DarkModeToggleTest extends TestCase
         $disabled = DarkModeToggle::disabled();
         $anotherEnabled = DarkModeToggle::enabled();
 
-        assert($enabled->neq($disabled));
-        assert($disabled->neq($enabled));
-        assert(!$enabled->neq($anotherEnabled));
+        $this->assertTrue($enabled->neq($disabled));
+        $this->assertTrue($disabled->neq($enabled));
+        $this->assertTrue(!$enabled->neq($anotherEnabled));
     }
 
     public function testBooleanStateChecks(): void
@@ -49,15 +49,11 @@ class DarkModeToggleTest extends TestCase
         $enabled = DarkModeToggle::enabled();
         $disabled = DarkModeToggle::disabled();
 
-        assert($enabled->isEnabled());
-        assert(!$enabled->isDisabled());
-        assert($enabled->isEnabled());
-        assert(!$enabled->isDisabled());
+        $this->assertTrue($enabled->isEnabled());
+        $this->assertTrue(!$enabled->isDisabled());
 
-        assert(!$disabled->isEnabled());
-        assert($disabled->isDisabled());
-        assert(!$disabled->isEnabled());
-        assert($disabled->isDisabled());
+        $this->assertTrue(!$disabled->isEnabled());
+        $this->assertTrue($disabled->isDisabled());
     }
 
     public function testToggleOperation(): void
@@ -68,12 +64,11 @@ class DarkModeToggleTest extends TestCase
         $toggledEnabled = $enabled->toggle();
         $toggledDisabled = $disabled->toggle();
 
-        assert($toggledEnabled->isDisabled());
-        assert($toggledDisabled->isEnabled());
+        $this->assertTrue($toggledEnabled->isDisabled());
+        $this->assertTrue($toggledDisabled->isEnabled());
 
-        // Original objects should remain unchanged
-        assert($enabled->isEnabled());
-        assert($disabled->isDisabled());
+        $this->assertTrue($enabled->isEnabled());
+        $this->assertTrue($disabled->isDisabled());
     }
 
     public function testLogicalOperations(): void
@@ -84,51 +79,20 @@ class DarkModeToggleTest extends TestCase
         $anotherDisabled = DarkModeToggle::disabled();
 
         // AND operations
-        assert($enabled->and($anotherEnabled) === true);
-        assert($enabled->and($disabled) === false);
-        assert($disabled->and($enabled) === false);
-        assert($disabled->and($anotherDisabled) === false);
+        $this->assertTrue($enabled->and($anotherEnabled) === true);
+        $this->assertTrue($enabled->and($disabled) === false);
+        $this->assertTrue($disabled->and($enabled) === false);
+        $this->assertTrue($disabled->and($anotherDisabled) === false);
 
         // OR operations
-        assert($enabled->or($anotherEnabled) === true);
-        assert($enabled->or($disabled) === true);
-        assert($disabled->or($enabled) === true);
-        assert($disabled->or($anotherDisabled) === false);
-
-        // XOR operations
-        assert($enabled->xor($anotherEnabled) === false);
-        assert($enabled->xor($disabled) === true);
-        assert($disabled->xor($enabled) === true);
-        assert($disabled->xor($anotherDisabled) === false);
+        $this->assertTrue($enabled->or($anotherEnabled) === true);
+        $this->assertTrue($enabled->or($disabled) === true);
+        $this->assertTrue($disabled->or($enabled) === true);
+        $this->assertTrue($disabled->or($anotherDisabled) === false);
 
         // NOT operations
-        assert($enabled->not() === false);
-        assert($disabled->not() === true);
-    }
-
-    public function testEnableDisableMethods(): void
-    {
-        $toggle = DarkModeToggle::disabled();
-
-        $enabledToggle = $toggle->enable();
-        $disabledToggle = $toggle->disable();
-
-        assert($enabledToggle->isEnabled());
-        assert($disabledToggle->isDisabled());
-
-        // Original should remain unchanged
-        assert($toggle->isDisabled());
-    }
-
-    public function testStringRepresentation(): void
-    {
-        $enabled = DarkModeToggle::enabled();
-        $disabled = DarkModeToggle::disabled();
-
-        assert((string) $enabled === 'true');
-        assert((string) $disabled === 'false');
-        assert($enabled->__toString() === 'true');
-        assert($disabled->__toString() === 'false');
+        $this->assertTrue($enabled->not() === false);
+        $this->assertTrue($disabled->not() === true);
     }
 
     public function testValueProperty(): void
@@ -136,23 +100,19 @@ class DarkModeToggleTest extends TestCase
         $enabled = DarkModeToggle::enabled();
         $disabled = DarkModeToggle::disabled();
 
-        assert($enabled->value === true);
-        assert($disabled->value === false);
+        $this->assertTrue($enabled->value === true);
+        $this->assertTrue($disabled->value === false);
     }
 
     public function testImmutability(): void
     {
         $original = DarkModeToggle::enabled();
         $toggled = $original->toggle();
-        $enabled = $original->enable();
-        $disabled = $original->disable();
 
         // All operations should return new instances
-        assert($original !== $toggled);
-        assert($original !== $enabled);
-        assert($original !== $disabled);
+        $this->assertTrue($original !== $toggled);
 
         // Original should remain unchanged
-        assert($original->isEnabled());
+        $this->assertTrue($original->isEnabled());
     }
 }

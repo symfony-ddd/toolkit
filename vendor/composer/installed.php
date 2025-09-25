@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'symfony-ddd/toolkit',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'c7dee5da54c3fa9f8ef5f0303d3bfe79ba63ebc9',
         'type' => 'symfony-bundle',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -317,9 +317,9 @@
             'dev_requirement' => true,
         ),
         'symfony-ddd/toolkit' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'c7dee5da54c3fa9f8ef5f0303d3bfe79ba63ebc9',
             'type' => 'symfony-bundle',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -549,6 +549,15 @@
             'install_path' => __DIR__ . '/../symfony/var-exporter',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'symfony/yaml' => array(
+            'pretty_version' => 'v7.3.3',
+            'version' => '7.3.3.0',
+            'reference' => 'd4f4a66866fe2451f61296924767280ab5732d9d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/yaml',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'theseer/tokenizer' => array(
             'pretty_version' => '1.2.3',
