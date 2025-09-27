@@ -1,5 +1,5 @@
 # Partial configuration for testing defaults
-symfony_ddd_toolkit:
+ddd_toolkit:
     buses:
         command_bus: 'app.custom_command_bus'
         # event_bus uses default value

@@ -27,5 +27,7 @@ class TestKernel extends Kernel
             'test' => true,
             'secret' => 'test-secret',
         ]);
+        $container->loadFromExtension('ddd_toolkit', [
+        ]);
     }
 }

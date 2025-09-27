@@ -1,5 +1,0 @@
-# Example configuration for SymfonyDDD Toolkit Bundle
-symfony_ddd_toolkit:
-    buses:
-        command_bus: 'symfony_ddd_toolkit.command_bus'
-        event_bus: 'symfony_ddd_toolkit.event_bus'

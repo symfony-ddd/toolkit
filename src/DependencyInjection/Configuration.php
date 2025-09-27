@@ -10,7 +10,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('symfony_ddd_toolkit');
+        $treeBuilder = new TreeBuilder('ddd_toolkit');
 
         $treeBuilder->getRootNode()
             ->children()
@@ -18,15 +18,12 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('command_bus')
-                            ->defaultValue('symfony_ddd_toolkit.bus.commands')
                         ->end()
                         ->scalarNode('event_bus')
-                            ->defaultValue('symfony_ddd_toolkit.bus.events')
                         ->end()
                     ->end()
                 ->end()
             ->end();
-
 
         return $treeBuilder;
     }

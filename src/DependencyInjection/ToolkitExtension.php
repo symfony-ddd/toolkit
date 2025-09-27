@@ -41,7 +41,16 @@ class ToolkitExtension extends Extension
             $this->createDefaultBus($commandBusServiceId, $container);
         }
 
-        $container->setAlias('symfony_ddd_toolkit.command_bus', $commandBusServiceId);
+        $container->setAlias('ddd_toolkit.command_bus', $commandBusServiceId);
+    }
+
+    private function configureEventBus(string $eventBusServiceId, ContainerBuilder $container): void
+    {
+        if (!$container->hasDefinition($eventBusServiceId)) {
+            $this->createDefaultBus($eventBusServiceId, $container);
+        }
+
+        $container->setAlias('ddd_toolkit.event_bus', $eventBusServiceId);
     }
 
     private function createDefaultBus(string $serviceId, ContainerBuilder $container): void
@@ -52,17 +61,8 @@ class ToolkitExtension extends Extension
         $container->setDefinition($serviceId, $definition);
     }
 
-    private function configureEventBus(string $eventBusServiceId, ContainerBuilder $container): void
-    {
-        if (!$container->hasDefinition($eventBusServiceId)) {
-            $this->createDefaultBus($eventBusServiceId, $container);
-        }
-
-        $container->setAlias('symfony_ddd_toolkit.event_bus', $eventBusServiceId);
-    }
-
     public function getAlias(): string
     {
-        return 'symfony_ddd_toolkit';
+        return 'ddd_toolkit';
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace SymfonyDDD\ToolkitBundle\Tests\Unit\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Messenger\MessageBus;
@@ -22,7 +23,7 @@ class ToolkitExtensionTest extends TestCase
 
     public function testExtensionAlias(): void
     {
-        $this->assertEquals('symfony_ddd_toolkit', $this->extension->getAlias());
+        $this->assertEquals('ddd_toolkit', $this->extension->getAlias());
     }
 
     public function testDefaultBusConfiguration(): void
@@ -32,28 +33,28 @@ class ToolkitExtensionTest extends TestCase
         $this->extension->load([$config], $this->container);
 
         // Check that aliases are created
-        $this->assertTrue($this->container->hasAlias('symfony_ddd_toolkit.command_bus'));
-        $this->assertTrue($this->container->hasAlias('symfony_ddd_toolkit.event_bus'));
+        $this->assertTrue($this->container->hasAlias('ddd_toolkit.command_bus'));
+        $this->assertTrue($this->container->hasAlias('ddd_toolkit.event_bus'));
 
         // Check that default buses are created
-        $this->assertTrue($this->container->hasDefinition('symfony_ddd_toolkit.bus.commands'));
-        $this->assertTrue($this->container->hasDefinition('symfony_ddd_toolkit.bus.events'));
+        $this->assertTrue($this->container->hasDefinition('ddd_toolkit.bus.commands'));
+        $this->assertTrue($this->container->hasDefinition('ddd_toolkit.bus.events'));
 
         // Check bus definitions
-        $commandBusDefinition = $this->container->getDefinition('symfony_ddd_toolkit.bus.commands');
+        $commandBusDefinition = $this->container->getDefinition('ddd_toolkit.bus.commands');
         $this->assertEquals(MessageBus::class, $commandBusDefinition->getClass());
         $this->assertTrue($commandBusDefinition->hasTag('messenger.bus'));
 
-        $eventBusDefinition = $this->container->getDefinition('symfony_ddd_toolkit.bus.events');
+        $eventBusDefinition = $this->container->getDefinition('ddd_toolkit.bus.events');
         $this->assertEquals(MessageBus::class, $eventBusDefinition->getClass());
         $this->assertTrue($eventBusDefinition->hasTag('messenger.bus'));
 
         // Check aliases point to correct services
-        $commandBusAlias = $this->container->getAlias('symfony_ddd_toolkit.command_bus');
-        $this->assertEquals('symfony_ddd_toolkit.bus.commands', (string) $commandBusAlias);
+        $commandBusAlias = $this->container->getAlias('ddd_toolkit.command_bus');
+        $this->assertEquals('ddd_toolkit.bus.commands', (string) $commandBusAlias);
 
-        $eventBusAlias = $this->container->getAlias('symfony_ddd_toolkit.event_bus');
-        $this->assertEquals('symfony_ddd_toolkit.bus.events', (string) $eventBusAlias);
+        $eventBusAlias = $this->container->getAlias('ddd_toolkit.event_bus');
+        $this->assertEquals('ddd_toolkit.bus.events', (string) $eventBusAlias);
     }
 
     public function testCustomBusConfiguration(): void
@@ -75,15 +76,15 @@ class ToolkitExtensionTest extends TestCase
         $this->extension->load([$config], $this->container);
 
         // Check aliases point to custom services
-        $commandBusAlias = $this->container->getAlias('symfony_ddd_toolkit.command_bus');
+        $commandBusAlias = $this->container->getAlias('ddd_toolkit.command_bus');
         $this->assertEquals('app.custom_command_bus', (string) $commandBusAlias);
 
-        $eventBusAlias = $this->container->getAlias('symfony_ddd_toolkit.event_bus');
+        $eventBusAlias = $this->container->getAlias('ddd_toolkit.event_bus');
         $this->assertEquals('app.custom_event_bus', (string) $eventBusAlias);
 
         // Default buses should not be created
-        $this->assertFalse($this->container->hasDefinition('symfony_ddd_toolkit.bus.commands'));
-        $this->assertFalse($this->container->hasDefinition('symfony_ddd_toolkit.bus.events'));
+        $this->assertFalse($this->container->hasDefinition('ddd_toolkit.bus.commands'));
+        $this->assertFalse($this->container->hasDefinition('ddd_toolkit.bus.events'));
     }
 
 
@@ -103,14 +104,14 @@ class ToolkitExtensionTest extends TestCase
         $this->extension->load([$config], $this->container);
 
         // Command bus should use custom service
-        $commandBusAlias = $this->container->getAlias('symfony_ddd_toolkit.command_bus');
+        $commandBusAlias = $this->container->getAlias('ddd_toolkit.command_bus');
         $this->assertEquals('app.custom_command_bus', (string) $commandBusAlias);
 
         // Event bus should use default
-        $eventBusAlias = $this->container->getAlias('symfony_ddd_toolkit.event_bus');
-        $this->assertEquals('symfony_ddd_toolkit.bus.events', (string) $eventBusAlias);
+        $eventBusAlias = $this->container->getAlias('ddd_toolkit.event_bus');
+        $this->assertEquals('ddd_toolkit.bus.events', (string) $eventBusAlias);
 
         // Default event bus should be created
-        $this->assertTrue($this->container->hasDefinition('symfony_ddd_toolkit.bus.events'));
+        $this->assertTrue($this->container->hasDefinition('ddd_toolkit.bus.events'));
     }
 }

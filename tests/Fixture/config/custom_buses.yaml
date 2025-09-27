@@ -1,5 +1,5 @@
 # Custom bus configuration for testing
-symfony_ddd_toolkit:
+ddd_toolkit:
     buses:
         command_bus: 'app.custom_command_bus'
         event_bus: 'app.custom_event_bus'

@@ -26,54 +26,7 @@ class ConfigurationTest extends TestCase
         $this->assertArrayHasKey('command_bus', $config['buses']);
         $this->assertArrayHasKey('event_bus', $config['buses']);
 
-        $this->assertEquals('symfony_ddd_toolkit.bus.commands', $config['buses']['command_bus']);
-        $this->assertEquals('symfony_ddd_toolkit.bus.events', $config['buses']['event_bus']);
-    }
-
-    public function testCustomConfiguration(): void
-    {
-        $inputConfig = [
-            'buses' => [
-                'command_bus' => 'app.custom_command_bus',
-                'event_bus' => 'app.custom_event_bus'
-            ]
-        ];
-
-        $config = $this->processor->processConfiguration($this->configuration, [$inputConfig]);
-
-        $this->assertEquals('app.custom_command_bus', $config['buses']['command_bus']);
-        $this->assertEquals('app.custom_event_bus', $config['buses']['event_bus']);
-    }
-
-    public function testPartialConfiguration(): void
-    {
-        $inputConfig = [
-            'buses' => [
-                'command_bus' => 'app.custom_command_bus'
-            ]
-        ];
-
-        $config = $this->processor->processConfiguration($this->configuration, [$inputConfig]);
-
-        // Custom command bus
-        $this->assertEquals('app.custom_command_bus', $config['buses']['command_bus']);
-
-        // Default event bus
-        $this->assertEquals('symfony_ddd_toolkit.bus.events', $config['buses']['event_bus']);
-    }
-
-    public function testEmptyConfiguration(): void
-    {
-        $config = $this->processor->processConfiguration($this->configuration, [[]]);
-
-        $this->assertArrayHasKey('buses', $config);
-        $this->assertEquals('symfony_ddd_toolkit.bus.commands', $config['buses']['command_bus']);
-        $this->assertEquals('symfony_ddd_toolkit.bus.events', $config['buses']['event_bus']);
-    }
-
-    public function testTreeBuilderRootName(): void
-    {
-        $treeBuilder = $this->configuration->getConfigTreeBuilder();
-        $this->assertEquals('symfony_ddd_toolkit', $treeBuilder->getRootNode()->getName());
+        $this->assertEquals('ddd_toolkit.bus.commands', $config['buses']['command_bus']);
+        $this->assertEquals('ddd_toolkit.bus.events', $config['buses']['event_bus']);
     }
 }

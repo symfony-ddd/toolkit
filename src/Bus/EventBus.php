@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace SymfonyDDD\ToolkitBundle\Bus;
 
-use Symfony\Component\Messenger\MessageBusInterface;
+use SymfonyDDD\ToolkitBundle\library\DomainEvent;
 
-interface EventBus extends MessageBusInterface
+interface EventBus
 {
+    public function dispatch(DomainEvent $event): void;
 }

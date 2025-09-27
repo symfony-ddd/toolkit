@@ -2,10 +2,8 @@
 declare(strict_types=1);
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use SymfonyDDD\ToolkitBundle\Bus\CommandBus;
-use SymfonyDDD\ToolkitBundle\Bus\CommandRouter;
 use SymfonyDDD\ToolkitBundle\Bus\EventBus;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
+use SymfonyDDD\ToolkitBundle\Cqrs\CommandBus;
 
 return static function (ContainerConfigurator $container): void {
     $services = $container->services()
@@ -22,14 +20,9 @@ return static function (ContainerConfigurator $container): void {
             '../src/Exception/',
         ]);
 
-    // Register the command router
-    $services->set(CommandRouter::class)
-        ->arg('$commandHandlers', tagged_iterator('app.command_handler'));
-
-    // Aliases for easy access to configured buses
-    $services->alias(CommandBus::class, 'symfony_ddd_toolkit.command_bus')
+    $services->alias(CommandBus::class, 'ddd_toolkit.command_bus')
         ->public(false);
 
-    $services->alias(EventBus::class, 'symfony_ddd_toolkit.event_bus')
+    $services->alias(EventBus::class, 'ddd_toolkit.event_bus')
         ->public(false);
 };

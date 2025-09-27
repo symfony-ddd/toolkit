@@ -3,7 +3,7 @@
 namespace SymfonyDDD\ToolkitBundle\Tests\Unit\ValueObject\Mock;
 
 use InvalidArgumentException;
-use SymfonyDDD\ToolkitBundle\Value\IntValue;
+use SymfonyDDD\ToolkitBundle\library\Value\IntValue;
 
 readonly class Delay extends IntValue
 {
@@ -14,6 +14,6 @@ readonly class Delay extends IntValue
 
     protected function validate(int $value): void
     {
-        assert($value >= 0, throw new InvalidArgumentException('Delay cannot be negative'));
+        assert($value >= 0, new InvalidArgumentException('Delay cannot be negative'));
     }
 }

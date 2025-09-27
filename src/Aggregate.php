@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace SymfonyDDD\ToolkitBundle;
 
+use SymfonyDDD\ToolkitBundle\library\AggregateRoot;
+use SymfonyDDD\ToolkitBundle\library\DomainEvent;
+
 abstract class Aggregate implements AggregateRoot
 {
     /**

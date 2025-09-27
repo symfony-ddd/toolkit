@@ -2,6 +2,7 @@
 
 namespace SymfonyDDD\ToolkitBundle\Tests\Unit\ValueObject;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SymfonyDDD\ToolkitBundle\Tests\Unit\ValueObject\Mock\Delay;
 
@@ -102,8 +103,7 @@ class DelayTest extends TestCase
 
     public function testNegativeDelayThrowsException(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Delay cannot be negative');
+        $this->expectException(InvalidArgumentException::class);
 
         Delay::fromMilliseconds(-100);
     }

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'symfony-ddd/toolkit',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => 'c7dee5da54c3fa9f8ef5f0303d3bfe79ba63ebc9',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => null,
         'type' => 'symfony-bundle',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -317,9 +317,9 @@
             'dev_requirement' => true,
         ),
         'symfony-ddd/toolkit' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => 'c7dee5da54c3fa9f8ef5f0303d3bfe79ba63ebc9',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => null,
             'type' => 'symfony-bundle',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

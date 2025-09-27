@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace SymfonyDDD\ToolkitBundle\Value;
+namespace SymfonyDDD\ToolkitBundle\library\Value;
 
-use SymfonyDDD\ToolkitBundle\Value;
+use SymfonyDDD\ToolkitBundle\library\Value;
 
-abstract readonly class ToggleValue implements Value
+abstract readonly class BoolValue implements Value
 {
     protected function __construct(
         public bool $value
@@ -18,37 +18,22 @@ abstract readonly class ToggleValue implements Value
         // Override this method in your concrete value object
     }
 
-    public function eq(ToggleValue $other): bool
+    public function eq(BoolValue $other): bool
     {
         return $this->value === $other->value && $this::class === $other::class;
     }
 
-    public function neq(ToggleValue $other): bool
+    public function neq(BoolValue $other): bool
     {
         return !$this->eq($other);
     }
 
-    public function isEnabled(): bool
-    {
-        return $this->value === true;
-    }
-
-    public function isDisabled(): bool
-    {
-        return $this->value === false;
-    }
-
-    public function toggle(): static
-    {
-        return new static(!$this->value);
-    }
-
-    public function and(ToggleValue $other): bool
+    public function and(BoolValue $other): bool
     {
         return $this->value && $other->value;
     }
 
-    public function or(ToggleValue $other): bool
+    public function or(BoolValue $other): bool
     {
         return $this->value || $other->value;
     }

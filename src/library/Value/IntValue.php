@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace SymfonyDDD\ToolkitBundle\Value;
+namespace SymfonyDDD\ToolkitBundle\library\Value;
 
-use SymfonyDDD\ToolkitBundle\Value;
+use SymfonyDDD\ToolkitBundle\library\Value;
 
 abstract readonly class IntValue implements Value
 {
