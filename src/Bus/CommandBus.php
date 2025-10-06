@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace SymfonyDDD\ToolkitBundle\Cqrs;
+namespace SymfonyDDD\ToolkitBundle\Bus;
 
 use SymfonyDDD\ToolkitBundle\library\Command;
 

@@ -3,7 +3,13 @@ declare(strict_types=1);
 
 namespace SymfonyDDD\ToolkitBundle\library;
 
-interface CommandHandler
+use Attribute;
+
+#[Attribute(Attribute::TARGET_METHOD)]
+final class CommandHandler
 {
-    public function __invoke(Command $command): AggregateRoot;
+    public function __construct(
+        public bool $manualEventRelease = false,
+    ) {
+    }
 }

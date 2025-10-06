@@ -1,8 +1,12 @@
 # Symfony DDD Toolkit Bundle
 
-> A Symfony bundle that makes Domain-Driven Design implementation effortless by providing essential building blocks and keeping your domain understandable.
+> Symfony messenger extension that makes Domain-Driven Design implementation effortless by providing essential building blocks that keep code understandable.
 
-- ✅ **Ready-to-use Building Blocks**: Value Objects, Aggregates, Domain Events
+The core part is a lightweight framework-agnostic library you will use inside the domain layer.
+On top of that, this package provides ready to use functionalities:
+
+- ✅ **Library annotations**: Value Objects, Aggregates, Domain Events, Commands
+- ✅ **Toolkit services**: Command handler, Process manager for handling domain events as workflow, ...
 
 Installation
 ============

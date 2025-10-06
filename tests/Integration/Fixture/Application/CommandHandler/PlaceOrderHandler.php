@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Integration\Fixture\Application\CommandHandler;
 
@@ -10,7 +11,7 @@ use SymfonyDDD\ToolkitBundle\library\CommandHandler;
 final readonly class PlaceOrderHandler
 {
     public function __construct(
-        private readonly Orders $orders,
+        private Orders $orders,
     ){
     }
 
